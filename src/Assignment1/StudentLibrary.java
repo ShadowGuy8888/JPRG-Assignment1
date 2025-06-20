@@ -5,6 +5,7 @@
 */
 package Assignment1;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,9 +41,6 @@ public class StudentLibrary {
                 case "2":
                     // Call your Books in Library class/method here
                     BookManagement bookManagement = new BookManagement();
-                    bookManagement.addBook("Basic Java", "Peter Lim", 800372, 21.90, "Programming");
-                    bookManagement.addBook("Java Script Essential", "Tim Steven", 800837, 19.90, "Programming");
-                    bookManagement.addBook("ABC of Database", "Sue Ling", 800278, 15.90, "Programming");
                     bookManagement.run();
                     break;
 
