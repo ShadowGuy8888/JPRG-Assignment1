@@ -7,20 +7,15 @@ package Assignment1;
 
 import java.util.ArrayList;
 
-public class Student {
-    private static int studentCount = 0;
-    private int studentNumber;    
+public class Student { 
     private String name;
     private String adminNumber;
-    private ArrayList<String> books;
+    private ArrayList<Book> books;
 
     public Student(String adminNumber, String name) {
         this.adminNumber = adminNumber;
         this.name = name;
         this.books = new ArrayList<>();
-
-        studentCount++; 
-        this.studentNumber = studentCount; 
     }
 
     public String getName() {
@@ -39,16 +34,21 @@ public class Student {
         this.adminNumber = adminNumber;
     }
 
-    public ArrayList<String> getBooks() {
+    public ArrayList<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(ArrayList<String> books) {
+    public void setBooks(ArrayList<Book> books) {
         this.books = books;
     }
 
-    public void borrowBook(String book) {
+    public void borrowBook(Book book) {
         books.add(book);
+        book.setAvailability(false);
+    }
+
+    public void removeBook(int index) {
+        this.books.remove(index);
     }
 
     @Override

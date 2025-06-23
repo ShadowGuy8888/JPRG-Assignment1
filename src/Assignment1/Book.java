@@ -76,5 +76,8 @@ public class Book {
         this.availability = availability;
     }
 
-    
+    @Override
+    public String toString() {
+        return this.getTitle();
+    }
 }

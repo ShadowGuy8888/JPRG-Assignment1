@@ -8,14 +8,23 @@ package Assignment1;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jovan
- */
-public class StudentLibrary {
 
+ /**
+  * @author Jovan Yap
+  * Main class for the Student Library System
+  * Acts as the entry point and main menu controller
+  */
+public class StudentLibrary {
+    // Static instances of management classes
+    private static StudentManagement studentManagement = new StudentManagement();
+    private static BookManagement bookManagement = new BookManagement();
+
+    /**
+     * Main application loop that displays the primary menu
+     */
     public static void run() {
         while (true) {
+            // Display main menu options
             String inputNo = JOptionPane.showInputDialog(
                 null,
                 "Enter your option:\n\n1) Student management\n2) Books in library\n3) Exit",
@@ -23,25 +32,22 @@ public class StudentLibrary {
                 JOptionPane.QUESTION_MESSAGE
             );
 
-            // Handle cancel or close button
+            // Handle window close/cancel
             if (inputNo == null) {
                 JOptionPane.showMessageDialog(null, "Program exited.");
                 break;
             }
 
-            inputNo = inputNo.trim();
+            inputNo = inputNo.trim(); // Clean input
 
+            // Route to appropriate subsystem
             switch (inputNo) {
                 case "1":
-                    // Call your Student Management class/method here
-                    StudentManagement studentManagement = new StudentManagement();
-                    studentManagement.run();
+                    studentManagement.run(); // Launch student management
                     break;
 
                 case "2":
-                    // Call your Books in Library class/method here
-                    BookManagement bookManagement = new BookManagement();
-                    bookManagement.run();
+                    bookManagement.run(); // Launch book management
                     break;
 
                 case "3":
@@ -55,6 +61,10 @@ public class StudentLibrary {
             }
         }
     }
+
+    /**
+     * Application entry point
+     */
     public static void main(String ...args) {
         run();
     }
