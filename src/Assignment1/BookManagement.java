@@ -65,6 +65,7 @@ public class BookManagement {
                 case "5":
                     StudentLibrary.run(); // Return to main menu
                 default:
+                    AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter 1, 2, 3, 4, or 5.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
             }
@@ -120,10 +121,14 @@ public class BookManagement {
             }
 
             // book object of searchTitle can be found
-            if (searchedBook != null) 
+            if (searchedBook != null) {
+                AudioPlayer.playSound("src/Assignment1/sounds/success.wav");
                 JOptionPane.showMessageDialog(null, "Book :\nBook Title : " + searchedBook.getTitle() + "\nBook Author : " + searchedBook.getAuthor() + "\nAvailability : " + searchedBook.getAvailability(), "Message", JOptionPane.INFORMATION_MESSAGE);
-            else // book not found
+            }
+            else { // book not found
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
                 JOptionPane.showMessageDialog(null, "Cannot find the book \"" + searchTitle + "\"", searchTitle, JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -141,7 +146,10 @@ public class BookManagement {
             title = JOptionPane.showInputDialog(null, "Enter the new book title :", "Input", JOptionPane.QUESTION_MESSAGE);
             if (title == null) return;
             // Title validation
-            else if (title.length() < 3) JOptionPane.showMessageDialog(null, "Book title must be at least 3 characters long.");
+            else if (title.length() < 3) {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Book title must be at least 3 characters long.");
+            }
             else break;
         }
 
@@ -149,14 +157,20 @@ public class BookManagement {
             author = JOptionPane.showInputDialog(null, "Enter the new book author :", "Input", JOptionPane.QUESTION_MESSAGE);
             if (author == null) return;
             // Author validation
-            else if (author.length() < 3) JOptionPane.showMessageDialog(null, "Book author must be at least 3 characters long.");
+            else if (author.length() < 3) {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Book author must be at least 3 characters long.");
+            }
             else break;
         }
 
         while (true) {
             ISBN = JOptionPane.showInputDialog(null, "Enter the new book ISBN :", "Input", JOptionPane.QUESTION_MESSAGE);
             if (ISBN == null) return;
-            else if (!ISBN.matches("\\d{1,}")) JOptionPane.showMessageDialog(null, "Book ISBN must be a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if (!ISBN.matches("\\d{1,}")) {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Book ISBN must be a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             else break;
         }
 
@@ -164,7 +178,10 @@ public class BookManagement {
             price = JOptionPane.showInputDialog(null, "Enter the new book price :", "Input", JOptionPane.QUESTION_MESSAGE);
             // Price validation
             if (price == null) return;
-            else if (!price.matches("^\\d+(\\.\\d+)?$")) JOptionPane.showMessageDialog(null, "Please enter a valid number.");
+            else if (!price.matches("^\\d+(\\.\\d+)?$")) {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Please enter a valid number.");
+            }
             else if (price.matches("^\\d+(\\.\\d+)?$")) {
                 if (Double.parseDouble(price) < 5.0) JOptionPane.showMessageDialog(null, "Minimum price is $5.");
                 else break;
@@ -175,11 +192,15 @@ public class BookManagement {
             category = JOptionPane.showInputDialog(null, "Enter the new book category :", "Input", JOptionPane.QUESTION_MESSAGE);
             // Category validation
             if (category == null) return;
-            else if (category.length() < 3) JOptionPane.showMessageDialog(null, "Book category must be at least 3 characters long.");
+            else if (category.length() < 3) {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Book category must be at least 3 characters long.");
+            }
             else break;
         }
 
         this.addBook(title, author, Integer.parseInt(ISBN), Double.parseDouble(price), category);
+        AudioPlayer.playSound("src/Assignment1/sounds/success.wav");
         JOptionPane.showMessageDialog(null, "Book Added", "Message", JOptionPane.INFORMATION_MESSAGE);
     
     }

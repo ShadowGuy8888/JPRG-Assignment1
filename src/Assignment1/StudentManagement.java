@@ -44,7 +44,7 @@ public class StudentManagement {
         while (true) {
             String inputNo = JOptionPane.showInputDialog(
                     null,
-                    "Enter your option:\n\n1. Display all students\n2. Search student by name\n3. Add new student\n4. Display total number of students\n5. Borrow Book\n6 Return Book\n7. Exit",
+                    "Enter your option:\n\n1. Display all students\n2. Search student by name\n3. Add new student\n4. Display total number of students\n5. Borrow Book\n6. Return Book\n7. Exit",
                     "Mini Library System - Student Management",
                     JOptionPane.QUESTION_MESSAGE
             );
@@ -150,6 +150,7 @@ public class StudentManagement {
 
             // searchedStudent is truthy; student object of searchName can be found
             if (searchedStudent != null) {
+                AudioPlayer.playSound("src/Assignment1/sounds/success.wav");
                 JOptionPane.showMessageDialog(
                     null, 
                     String.format(
@@ -164,7 +165,10 @@ public class StudentManagement {
                 return;
 
             // Student object of searchName cannot be found
-            } else JOptionPane.showMessageDialog(null, "Cannot find the student '" + searchName + "'!!!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Cannot find the student \"" + searchName + "\" !!!", "Error", JOptionPane.ERROR_MESSAGE);
+            };
         }
     }
 
@@ -182,9 +186,11 @@ public class StudentManagement {
             
             adminNo = adminNo.trim(); // Clean the adminNo input
             
-            if (!adminNo.matches("^[pP]\\d{6}$")) // Admin number matches format: p*******
+            if (!adminNo.matches("^[pP]\\d{6}$")) { // Admin number !match format: p*******
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
                 JOptionPane.showMessageDialog(null, "Format of Admin Number must be a 'p' followed by seven numerical digits.\nE.g., p242482, p219472, p238274");
-            else // Admin number doesn't match format
+            }
+            else // Admin number matches format p*******
                 break;
         }
 
@@ -194,13 +200,16 @@ public class StudentManagement {
 
             name = name.trim(); // Clean the name input
 
-            if (name.length() < 3) // Name is less than 3 characters long
+            if (name.length() < 3) { // Name is less than 3 characters long
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
                 JOptionPane.showMessageDialog(null, "Name must be at least 3 characters long.");
+            }
             else // Name is at least 3 characters long
                 break;
         }
     
         this.addStudent(adminNo, name);
+        AudioPlayer.playSound("src/Assignment1/sounds/success.wav");
         JOptionPane.showMessageDialog(null, "Student added successfully.");
     
     }
@@ -232,7 +241,10 @@ public class StudentManagement {
             // admin number found
             if (student != null) break;
             // admin number not found
-            else JOptionPane.showMessageDialog(null, "Student " + adminNo + " not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            else {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Admin Number \"" + adminNo + "\" not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            };
         }
 
         // Book borrowing
@@ -247,19 +259,24 @@ public class StudentManagement {
             }
             // Book can be found
             if (borrowedBook != null) {
-                // book is available
                 if (borrowedBook.getAvailability() == true) {
+                    // book is available
                     student.borrowBook(borrowedBook); // This method also sets the book availability to false
+                    AudioPlayer.playSound("src/Assignment1/sounds/success.wav");
                     JOptionPane.showMessageDialog(null, "Book borrowed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } else {
                     // book is unavailable
+                    AudioPlayer.playSound("src/Assignment1/sounds/fail.wav");
                     JOptionPane.showMessageDialog(null, "Book ISBN " + ISBN + " is currently unavailable.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
             // Book cannot be found
-            else JOptionPane.showMessageDialog(null, "Book ISBN " + ISBN + " not found.", "Error", JOptionPane.ERROR_MESSAGE);            
+            else {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "ISBN \"" + ISBN + "\" not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            };
         }
     }
 
@@ -284,10 +301,16 @@ public class StudentManagement {
                 // Student has borrowed books
                 if (!student.getBooks().isEmpty()) break;
                 // Student has no borrowed books
-                else JOptionPane.showMessageDialog(null, "This student has no books to return!");
+                else {
+                    AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                    JOptionPane.showMessageDialog(null, "This student has no books to return!");
+                };
             }
             // Admin number not found
-            else JOptionPane.showMessageDialog(null, "Student not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            else {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, "Admin Number \"" + adminNo + "\" not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            };
         }
         
         while (true) {
@@ -332,10 +355,14 @@ public class StudentManagement {
                         break;
                     }
                 }
+                AudioPlayer.playSound("src/Assignment1/sounds/success.wav");
                 JOptionPane.showMessageDialog(null, "Book returned successfully!");
                 return;
                 // return book title is not inside the list of the student's borrowed books
-            } else JOptionPane.showMessageDialog(null, student.getName() + " didn't borrow that book!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
+                JOptionPane.showMessageDialog(null, student.getName() + " didn't borrow that book!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

@@ -56,6 +56,7 @@ public class StudentLibrary {
                     break;
 
                 default:
+                    AudioPlayer.playSound("src/Assignment1/sounds/huh.wav");
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter 1, 2, or 3.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
             }
@@ -66,6 +67,7 @@ public class StudentLibrary {
      * Application entry point
      */
     public static void main(String ...args) {
+        AudioPlayer.playSound("src/Assignment1/sounds/greeting.wav");
         run();
     }
 }
